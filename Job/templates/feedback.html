@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}Feedback - RozgarHub{% endblock %}
+
+{% block extra_css %}
+<style>
+    .feedback-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    .feedback-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-group {
+        text-align: left;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        font-size: 25px;
+    }
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        cursor: pointer;
+        color: #ddd;
+        transition: color 0.3s;
+    }
+
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: gold;
+    }
+
+    .radio-group {
+        display: flex;
+        gap: 15px;
+    }
+
+    button {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+</style>
+{%endblock%}
+{%block content%}
+<div class="feedback-container">
+    <h1>We Value Your Feedback</h1>
+    <p>Help us improve RozgarHub by sharing your experience. Your feedback is important to us!</p>
+
+    <form method="POST" action="{{ url_for('feedback') }}" class="feedback-form">
+        <div class="form-group">
+            <label for="name">Your Name (optional)</label>
+            <input type="text" id="name" name="name" placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Your Email (optional)</label>
+            <input type="email" id="email" name="email" placeholder="johndoe@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="user_type">I am a:</label>
+            <select id="user_type" name="user_type" required>
+                <option value="">Select your user type</option>
+                <option value="job_seeker">Job Seeker</option>
+                <option value="employer">Employer</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="feedback">Your Feedback</label>
+            <textarea id="feedback" name="feedback" rows="5" required placeholder="Please share your thoughts, suggestions, or concerns about RozgarHub..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="improvements">What can we improve?</label>
+            <textarea id="improvements" name="improvements" rows="3" placeholder="Any specific areas where you think we can do better?"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="features">Suggested Features</label>
+            <input type="text" id="features" name="features" placeholder="Any new features you'd like to see?">
+        </div>
+
+        <div class="form-group">
+            <label>Would you recommend RozgarHub to others?</label>
+            <div class="radio-group">
+                <input type="radio" id="recommend_yes" name="recommend" value="yes" required>
+                <label for="recommend_yes">Yes</label>
+                <input type="radio" id="recommend_no" name="recommend" value="no">
+                <label for="recommend_no">No</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </div>
+    </form>
+</div>
+{%endblock%}

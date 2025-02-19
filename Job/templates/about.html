@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+{%block extra_css%}
+<style>
+
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+        background-color: #f8f7f8;
+        color: #333;
+        line-height: 1.6;
+    }
+    
+    /* Header */
+    header {
+        background: #6b21a8;
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .auth-buttons button {
+        background: #9333ea;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-left: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: 0.3s ease-in-out;
+    }
+    
+    .auth-buttons button:hover {
+        background: #7e22ce;
+        transform: scale(1.05);
+    }
+    
+    /* About Job Portal */
+    .about-job-portal, .team {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    h2 {
+        color: #6b21a8;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+    
+    /* Info Cards */
+    .info-cards {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 23%;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .card img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 15px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .card h3 {
+        color: #6b21a8;
+        margin-bottom: 10px;
+    }
+    
+    .card:hover {
+        transform: scale(1.05);
+    }
+    
+    /* Team Section */
+    .team-cards {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .team-member {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 23%;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .team-member img {
+        width: 100px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+    }
+    
+    .team-member h3 {
+        color: #6b21a8;
+        margin-bottom: 10px;
+    }
+    
+    .team-member:hover {
+        transform: scale(1.05);
+    }
+    
+    /* Footer */
+    footer {
+        background: #6b21a8;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 30px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .info-cards, .team-cards {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .card, .team-member {
+            width: 80%;
+        }
+    }
+    
+    
+    </style>
+{%endblock%}
+
+{% block content %}
+
+
+
+
+ 
+
+    <main>
+        <section class="about-job-portal">
+            <h2>How Our Job Portal Works</h2>
+            <div class="info-cards">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/job_seekers.jpg') }}" alt="Job Seekers">
+                    <h3>For Job Seekers</h3>
+                    <p>Explore thousands of job listings tailored to your skills. Apply instantly and track your applications.</p>
+                </div>
+
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/employers.jpg') }}" alt="Employers">
+                    <h3>For Employers</h3>
+                    <p>Post job openings, review applications, and find the perfect candidate for your company.</p>
+                </div>
+
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/interviews.jpg') }}" alt="Interviews">
+                    <h3>Mock Interviews</h3>
+                    <p>Practice interviews with industry experts and get feedback to boost your confidence.</p>
+                </div>
+
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/faqs.jpg') }}" alt="FAQs">
+                    <h3>FAQs & Career Guidance</h3>
+                    <p>Get answers to all your job-related queries and expert guidance on career growth.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="team">
+            <h2>Meet Our Team</h2>
+            <div class="team-cards">
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/riya.jpg') }}" alt="Riya">
+                    <h3>Riya</h3>
+                    <p>The visionary behind our platform, ensuring a seamless user experience.</p>
+                </div>
+
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/manveet.jpg') }}" alt="Manveet">
+                    <h3>Manveet</h3>
+                    <p>Tech expert managing all backend operations and security.</p>
+                </div>
+
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/palak.jpg') }}" alt="Palak">
+                    <h3>Palak</h3>
+                    <p>Our creative designer, making everything look visually appealing.</p>
+                </div>
+
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='images/ojus.jpg') }}" alt="Ojus">
+                    <h3>Ojus</h3>
+                    <p>Handles client relations and ensures smooth communication.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    {% endblock %}
+
+
+{%block extra_js%}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {%endblock%}
+
+
+

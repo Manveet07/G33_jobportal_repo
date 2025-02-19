@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}Employer Dashboard{% endblock %}
+{% block extra_css %}
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+    }
+
+    h1, h2 {
+        color: #343a40;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+ 
+    .card-body {
+        padding: 20px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .modal-content {
+        border-radius: 10px;
+    }
+
+    .modal-header {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .modal-body p {
+        margin-bottom: 10px;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .list-group-item p {
+        margin: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .row {
+        margin-bottom: 20px;
+    }
+
+    .mb-3 {
+        margin-bottom: 1rem;
+    }
+
+    .mt-5 {
+        margin-top: 3rem;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .bg-light {
+        background-color: #f8f9fa;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    h1{
+        border-bottom: 2px solid purple;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Welcome {{current_user.name}}</h1>
+    <section class="bg-light p-4 rounded">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="mb-3">Hire People!</h2>
+                <div class="text-center mt-5">
+                    <img src="{{ url_for('static', filename='images/myjob.webp') }}" class="img-fluid" alt="Hire People" style="border-radius: 10px;">
+                </div>
+                <h2 class="mb-3 mt-5" style="font-style: italic;">My Job Postings</h2>
+                <div id="job-postings">
+                    {% for job in jobs %}
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-style: oblique;">{{ job.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Company: {{ job.company }}</h6>
+                                <p class="card-text">Location: {{ job.location }}</p>
+                                <p class="card-text">{{ job.description }}</p>
+                                <form action="{{ url_for('delete_job', job_id=job.id) }}" method="POST">
+                                    <button type="submit" class="btn btn-secondary">Delete Job</button>
+                                </form>
+                                <h6 class="mt-3">Applicants:</h6>
+                                <ul class="list-group">
+                                    {% for application in job.applications %}
+                                        <li class="list-group-item">
+                                            <p>{{ application.user.email }}</p>
+                                            <button class="btn btn-danger btn-sm" onclick="showApplicantDetails('{{ application.id }}')">View Details</button>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-4 card mb-3 shadow-sm">
+                <div class="card-body">
+                <h2 class="mb-3">Post a New Job</h2>
+                <form id="post-job-form" method="POST" action="{{ url_for('post_job') }}">
+                    <div class="mb-3">
+                        <label for="job-title" class="form-label">Job Title</label>
+                        <input type="text" class="form-control" id="job-title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="job-company" class="form-label">Company</label>
+                        <input type="text" class="form-control" id="job-company" name="company" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="job-description" class="form-label">Job Description</label>
+                        <textarea class="form-control" id="job-description" name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="job-location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="job-location" name="location" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post Job</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Applicant Details Modal -->
+<div class="modal fade" id="applicantDetailsModal" tabindex="-1" aria-labelledby="applicantDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applicantDetailsModalLabel">Applicant Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Job Title:</strong> <span id="applicant-job-title"></span></p>
+                <p><strong>Company:</strong> <span id="applicant-company"></span></p>
+                <p><strong>Location:</strong> <span id="applicant-location"></span></p>
+                <p><strong>Description:</strong></p>
+                <p id="applicant-description"></p>
+                <p><strong>Resume:</strong></p>
+                <p id="applicant-resume"></p>
+                <p><strong>Why Should We Hire You?</strong></p>
+                <p id="applicant-cover-letter"></p>
+                <p><strong>Applicant Email:</strong> <span id="applicant-email"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    function showApplicantDetails(applicationId) {
+        fetch('/employer_application_details/' + applicationId)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('applicant-job-title').textContent = data.job_title;
+                document.getElementById('applicant-company').textContent = data.company;
+                document.getElementById('applicant-location').textContent = data.location;
+                document.getElementById('applicant-description').textContent = data.description;
+                document.getElementById('applicant-resume').innerHTML = `<a href="/uploads/${data.resume}" target="_blank">View Resume</a>`;
+                document.getElementById('applicant-cover-letter').textContent = data.cover_letter;
+                document.getElementById('applicant-email').textContent = data.applicant_email;
+                const modal = new bootstrap.Modal(document.getElementById('applicantDetailsModal'));
+                modal.show();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error fetching applicant details. Please try again.');
+            });
+    }
+</script>
+{% endblock %}
+{% endblock %}

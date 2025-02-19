@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to Job Portal{% endblock %}
+
+{% block extra_css %}
+<style>
+    .testimonial {
+        background-color: #f8f9fa;
+        padding: 50px 0;
+    }
+
+    .testimonial .card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .testimonial .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .testimonial .card-body {
+        padding: 30px;
+    }
+
+    .testimonial .card-text {
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    .testimonial .blockquote-footer {
+        font-size: 0.9rem;
+        color: #6c757d;
+        background-color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .testimonial .card {
+        animation: fadeInUp 0.5s ease-in-out;
+    }
+
+    .card>img{
+        height: 200px;
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+   
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero-section text-center ">
+    <div class="container">
+        <h1 class="display-4 mb-4">Find Your Dream Job</h1>
+        <p class="lead mb-4" style="color: black ;">Connect with top employers and discover exciting career opportunities.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg px-4 gap-3">Get Started</a>
+            <a href="{{ url_for('about') }}" class="btn btn-outline-dark btn-lg px-4">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ url_for('static', filename='images/create-profile.jpg') }}" class="card-img-top" alt="Create Profile">
+                    <div class="card-body">
+                        <h5 class="card-title">Create Your Profile</h5>
+                        <p class="card-text">Sign up and create a comprehensive profile to showcase your skills and experience.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ url_for('static', filename='images/search-jobs.jpg') }}" class="card-img-top" alt="Search Jobs">
+                    <div class="card-body">
+                        <h5 class="card-title">Search for Jobs</h5>
+                        <p class="card-text">Browse through thousands of job listings or use our advanced search to find the perfect match.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ url_for('static', filename='images/apply.jpg') }}" class="card-img-top" alt="Apply for Jobs">
+                    <div class="card-body">
+                        <h5 class="card-title">Apply with Ease</h5>
+                        <p class="card-text">Submit your applications with just a few clicks and track your application status.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Companies</h2>
+        <div id="companyCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row justify-content-center align-items-space-between">
+                        <div class="col-4 col-md-2">
+                            <img src="https://cdn.dribbble.com/users/904380/screenshots/2233565/attachments/415915/revised-google-logo.png"
+                                class="img-fluid company-logo" alt="Company 1">
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <img src="https://tse3.mm.bing.net/th?id=OIP.zKJhnhtnKTj_9I--GATiqAHaEP&pid=Api&P=0&h=180"
+                                class="img-fluid company-logo" alt="Company 2">
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <img src="https://tse3.mm.bing.net/th?id=OIP.k5XvM8pKxonydUFIDf5OjgHaEK&pid=Api&P=0&h=180"
+                                class="img-fluid company-logo" alt="Company 3">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-4 col-md-2">
+                            <img src="https://logos-world.net/wp-content/uploads/2020/09/Microsoft-Logo-2012-present.jpg"
+                                class="img-fluid company-logo" alt="Company 4">
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <img src="https://www.1min30.com/wp-content/uploads/2018/07/Symbole-Goldman-Sachs.jpg"
+                                class="img-fluid company-logo" alt="Company 5">
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <img src="https://logos-world.net/wp-content/uploads/2021/11/Meta-Emblem.png"
+                                class="img-fluid company-logo" alt="Company 6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#companyCarousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#companyCarousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="testimonial">
+    <div class="container">
+        <h2 class="text-center mb-5">What Our Users Say</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"Thanks to Job Portal, I found my dream job in just a few weeks. The platform is user-friendly and has a great selection of job listings."</p>
+                        <footer class="blockquote-footer">John Doe, Software Developer</footer>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"As an employer, Job Portal has made our hiring process much more efficient. We've found some great talent through this platform."</p>
+                        <footer class="blockquote-footer">Jane Smith, HR Manager</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
